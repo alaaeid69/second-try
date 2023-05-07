@@ -3,12 +3,17 @@ import { engine } from 'express-handlebars';
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-mongoose.connect( process.env.mongoConnectionurl)
+mongoose.connect(  process.env.mongoConnectionurl);
+import subjectsRouter from './routes/subjects.js';
+import department from "./models/department.js";
 const app = express();
 
 app.engine('handlebars', engine());
 app.set('view engine', 'handlebars');
-app.set('views', './views');
+app.set('views', './templates');
+app.use('/subjects',subjectsRouter);
+
+
 app.listen( process.env.port, ( ) =>{
-console.log('started the app on http://localhost:' + port);
+    console.log(`started the application on http://localhost:${process.env.port}`);
 })
